@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Idea Report</title>
+<style>
+  :root{
+    --bg:#05070d;
+    --navy:#0b1b3a;
+    --navy2:#12285a;
+    --line:#1f3a75;
+    --text:#e8edf7;
+    --muted:#9aa8c4;
+    --accent:#4f8cff;
+    --good:#3fbf7f;
+    --bad:#ff7a6b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;font-size:18px;line-height:1.6}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+  header.hero{background:linear-gradient(180deg,var(--navy) 0%,var(--bg) 100%);border-bottom:1px solid var(--line);padding:72px 0 56px;text-align:center}
+  .tag{display:inline-block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--line);padding:4px 12px;border-radius:999px;margin-bottom:18px}
+  h1{font-size:clamp(34px,6vw,56px);line-height:1.15;margin-bottom:12px}
+  .lead{font-size:clamp(18px,2.4vw,24px);color:var(--muted);max-width:720px;margin:0 auto}
+  nav.toc{position:sticky;top:0;z-index:5;background:rgba(5,7,13,.95);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+  nav.toc a{flex:0 0 auto;color:var(--muted);text-decoration:none;font-size:14px;padding:6px 12px;border-radius:6px;white-space:nowrap}
+  nav.toc a:hover{background:var(--navy);color:var(--text)}
+  section{padding:56px 0;border-bottom:1px solid #0f1a33}
+  .num{color:var(--accent);font-weight:700;font-size:15px;letter-spacing:.06em}
+  h2{font-size:clamp(26px,3.6vw,36px);margin:4px 0 18px}
+  h3{font-size:20px;margin-bottom:8px}
+  p{margin-bottom:12px}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  .card{background:var(--navy);border:1px solid var(--line);border-radius:12px;padding:22px}
+  .card .ico{font-size:30px;margin-bottom:8px}
+  ul.clean{list-style:none}
+  ul.clean li{padding:8px 0 8px 28px;position:relative;border-bottom:1px solid #16264d}
+  ul.clean li:last-child{border-bottom:0}
+  ul.clean li::before{content:"▸";position:absolute;left:6px;color:var(--accent)}
+  .sample{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;background:#3a2a05;color:#ffcf5c;border:1px solid #6b4f10;padding:1px 8px;border-radius:4px;vertical-align:middle;margin-left:6px}
+  /* voice demo */
+  .voice{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center}
+  .bubble{background:var(--navy2);border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:20px;font-size:22px}
+  .bubble small{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  .arrow{font-size:34px;color:var(--accent);text-align:center}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:10px 8px;text-align:left;border-bottom:1px solid #1a2d5a}
+  th{color:var(--muted);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.04em}
+  td.r,th.r{text-align:right}
+  tr.total td{font-weight:700;border-top:2px solid var(--accent);border-bottom:0;font-size:20px}
+  /* flow */
+  .flow{display:flex;flex-direction:column;align-items:center;gap:0}
+  .step{background:var(--navy);border:1px solid var(--line);border-radius:12px;padding:14px 20px;width:100%;max-width:620px;display:flex;gap:14px;align-items:flex-start}
+  .step b.n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .step .say{display:block;color:#bcd2ff;font-style:italic;font-size:16px;margin-top:2px}
+  .down{color:var(--accent);font-size:24px;line-height:1;padding:6px 0}
+  .branch{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;width:100%;max-width:620px}
+  .branch .step{flex-direction:column;gap:4px}
+  /* day */
+  .day .card h3 span{color:var(--accent);font-size:14px;display:block;font-weight:600}
+  /* stats */
+  .stat{text-align:center}
+  .stat .v{font-size:32px;font-weight:700}
+  .stat .l{color:var(--muted);font-size:14px}
+  .v.good{color:var(--good)} .v.bad{color:var(--bad)}
+  /* compare */
+  .vs th:nth-child(3),.vs td:nth-child(3){color:#bcd2ff}
+  /* pricing */
+  .price{font-size:30px;font-weight:700;margin:6px 0 12px}
+  .pros h4{color:var(--good);margin:12px 0 4px;font-size:15px;text-transform:uppercase;letter-spacing:.05em}
+  .cons h4{color:var(--bad);margin:12px 0 4px;font-size:15px;text-transform:uppercase;letter-spacing:.05em}
+  .calc{margin-top:24px}
+  .calc label{display:block;font-size:14px;color:var(--muted);margin-bottom:6px}
+  .calc input,.calc select{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:18px}
+  .calc .out{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:14px}
+  .calc .out .big{font-size:30px;font-weight:700;color:var(--accent)}
+  footer{padding:32px 0;text-align:center;color:var(--muted);font-size:14px}
+  @media (max-width:640px){
+    body{font-size:16px}
+    section{padding:40px 0}
+    .voice{grid-template-columns:1fr}
+    .arrow{transform:rotate(90deg)}
+    th,td{padding:8px 4px;font-size:14px}
+  }
+  @media print{nav.toc{display:none}section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     APP KA NAAM YAHAN BADLEIN (sirf ek jagah):
+     ========================================================= -->
+<script>const APP_NAME = "DukaanBol";</script>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">App Idea Report</span>
+    <h1><span class="app-name">DukaanBol</span></h1>
+    <p class="lead">Chhoti dukaan ka poora hisab, sirf bolkar. Products, billing, udhaar aur din ka hisab, sab AI voice se.</p>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#problem">1. Problem</a>
+  <a href="#features">2. App kya karta hai</a>
+  <a href="#voice">3. Voice billing</a>
+  <a href="#flow">4. Flow</a>
+  <a href="#day">5. Ek din</a>
+  <a href="#report">6. Din ka hisab</a>
+  <a href="#different">7. Kya alag hai</a>
+  <a href="#pricing">8. Pricing</a>
+  <a href="#next">9. Next steps</a>
+</div></nav>
+
+<main class="wrap">
+
+  <!-- 1 -->
+  <section id="problem">
+    <div class="num">01</div>
+    <h2>Aaj dukaandar ki problem</h2>
+    <div class="grid g2">
+      <div class="card">
+        <ul class="clean">
+          <li>Bill haath se ya calculator se banta hai. Rush mein galti ho jaati hai.</li>
+          <li>Udhaar ek copy mein likha jaata hai. Copy kho gayi to hisab bhi gaya.</li>
+          <li>Kaunsa maal khatam ho raha hai, ye yaad se chalta hai.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul class="clean">
+          <li>Din ke end mein thak ke hisab milana mushkil lagta hai.</li>
+          <li>Asli profit kitna hua, ye pata hi nahi chalta.</li>
+          <li>Jo apps hain, unme bahut typing aur tapping hai. Customer saamne khada ho to time nahi hota.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="features">
+    <div class="num">02</div>
+    <h2>App kya karta hai</h2>
+    <div class="grid g4">
+      <div class="card"><div class="ico">📦</div><h3>Products</h3><p class="muted">Saare products ki list, price aur stock ke saath. Bolkar add karo.</p></div>
+      <div class="card"><div class="ico">🧾</div><h3>Billing</h3><p class="muted">Customer aaya, aapne bola, bill ready. Stock apne aap kam.</p></div>
+      <div class="card"><div class="ico">📒</div><h3>Daily Hisab</h3><p class="muted">Sales, kharcha, udhaar. AI khud jodta hai aur hisab rakhta hai.</p></div>
+      <div class="card"><div class="ico">🎙️</div><h3>AI Voice</h3><p class="muted">Hindi, English ya Hinglish. Jaise baat karte ho, waise bolo.</p></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="voice">
+    <div class="num">03</div>
+    <h2>Voice billing: ek example</h2>
+    <div class="voice">
+      <div class="bubble"><small>🎙️ Dukaandar bolta hai</small>"10 Kurkure, 4 Uncle Chips"</div>
+      <div class="arrow">➜</div>
+      <div class="card">
+        <h3>Bill <span class="sample">SAMPLE</span></h3>
+        <table>
+          <tr><th>Item</th><th class="r">Qty</th><th class="r">Rate</th><th class="r">Amount</th></tr>
+          <tr><td>Kurkure</td><td class="r">10</td><td class="r">₹10</td><td class="r">₹100</td></tr>
+          <tr><td>Uncle Chips</td><td class="r">4</td><td class="r">₹20</td><td class="r">₹80</td></tr>
+          <tr class="total"><td colspan="3">Total</td><td class="r">₹180</td></tr>
+        </table>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:16px">Rate product list se apne aap aata hai. Koi typing nahi. Prices sirf example ke liye hain.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="flow">
+    <div class="num">04</div>
+    <h2>App ka flow (step by step)</h2>
+    <div class="flow">
+      <div class="step"><b class="n">1</b><div><b>App kholo</b><span class="say">Mobile number se login. Bas.</span></div></div>
+      <div class="down">▼</div>
+      <div class="step"><b class="n">2</b><div><b>Products add karo, bolkar</b><span class="say">"Kurkure 10 rupay, 50 packet hai"</span></div></div>
+      <div class="down">▼</div>
+      <div class="step"><b class="n">3</b><div><b>List ban gayi</b><span class="say">Saare products, price aur stock ek jagah dikhte hain.</span></div></div>
+      <div class="down">▼</div>
+      <div class="step"><b class="n">4</b><div><b>Customer aaya, bolo kya liya</b><span class="say">"10 Kurkure, 4 Uncle Chips"</span></div></div>
+      <div class="down">▼</div>
+      <div class="step"><b class="n">5</b><div><b>Bill ready, stock apne aap kam</b><span class="say">Bill dikhao ya WhatsApp pe bhejo.</span></div></div>
+      <div class="down">▼</div>
+      <div class="branch">
+        <div class="step"><b>💸 Kharcha bolo</b><span class="say">"200 rupay bijli ka bill"</span></div>
+        <div class="step"><b>📒 Udhaar bolo</b><span class="say">"Sharma ji 150 udhaar"</span></div>
+      </div>
+      <div class="down">▼</div>
+      <div class="step"><b class="n">6</b><div><b>Raat ko hisab dekho</b><span class="say">Sales, kharcha, profit, udhaar. Ek screen pe, AI ne bana diya.</span></div></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="day" class="day">
+    <div class="num">05</div>
+    <h2>App ke saath ek din</h2>
+    <div class="grid g2" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <div class="card"><h3><span>🌅 Subah</span>Dukaan khuli</h3>
+        <ul class="clean"><li>App batata hai kaunsa maal kam hai.</li><li>Naya maal aaya? Bolkar stock badhao.</li></ul></div>
+      <div class="card"><h3><span>☀️ Din bhar</span>Customers aate rahe</h3>
+        <ul class="clean"><li>Har customer ka bill bolkar.</li><li>Udhaar aur kharcha bhi bolkar.</li></ul></div>
+      <div class="card"><h3><span>🌙 Dukaan band</span>Hisab ka time</h3>
+        <ul class="clean"><li>Ek tap, poore din ka hisab ready.</li><li>Kal kya mangwana hai, wo bhi dikhta hai.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="report">
+    <div class="num">06</div>
+    <h2>Din ka hisab <span class="sample">SAMPLE NUMBERS</span></h2>
+    <div class="grid g4" style="margin-bottom:16px">
+      <div class="card stat"><div class="v">₹8,450</div><div class="l">Total Sales (sample)</div></div>
+      <div class="card stat"><div class="v bad">₹1,200</div><div class="l">Kharcha (sample)</div></div>
+      <div class="card stat"><div class="v good">₹1,650</div><div class="l">Profit (sample)</div></div>
+      <div class="card stat"><div class="v">₹950</div><div class="l">Aaj ka Udhaar (sample)</div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>Sabse zyada bika <span class="sample">SAMPLE</span></h3>
+        <table><tr><th>Product</th><th class="r">Qty</th></tr>
+          <tr><td>Doodh</td><td class="r">42</td></tr>
+          <tr><td>Kurkure</td><td class="r">35</td></tr>
+          <tr><td>Bread</td><td class="r">18</td></tr></table></div>
+      <div class="card"><h3>Kal mangwana hai <span class="sample">SAMPLE</span></h3>
+        <table><tr><th>Product</th><th class="r">Bacha</th></tr>
+          <tr><td>Uncle Chips</td><td class="r">3</td></tr>
+          <tr><td>Maggi</td><td class="r">5</td></tr>
+          <tr><td>Parle-G</td><td class="r">6</td></tr></table></div>
+    </div>
+    <p class="muted" style="margin-top:14px">Upar ke saare numbers sirf samjhane ke liye hain. Ye real data nahi hai.</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="different">
+    <div class="num">07</div>
+    <h2>Baaki apps se kya alag hai</h2>
+    <div class="card">
+      <table class="vs">
+        <tr><th>Kaam</th><th>Aam apps</th><th><span class="app-name">DukaanBol</span></th></tr>
+        <tr><td>Bill banana</td><td>Item dhundo, tap karo, qty type karo</td><td>Bas bolo</td></tr>
+        <tr><td>Product add</td><td>Form bharo</td><td>Ek line bolo</td></tr>
+        <tr><td>Udhaar / kharcha</td><td>Alag screen, typing</td><td>Bolkar entry</td></tr>
+        <tr><td>Bhasha</td><td>Zyadatar typing pe depend</td><td>Hindi, English, Hinglish voice</td></tr>
+        <tr><td>Din ka hisab</td><td>Khud dekhna padta hai</td><td>AI ready karke deta hai</td></tr>
+      </table>
+    </div>
+    <p class="muted" style="margin-top:14px">Ye ek general comparison hai. Kisi specific app ka naam ya data nahi liya gaya.</p>
+  </section>
+
+  <!-- 8 -->
+  <section id="pricing">
+    <div class="num">08</div>
+    <h2>Pricing: do strategies</h2>
+    <p class="muted">Target customer dono mein same hai: chhote business aur dukaandar.</p>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <span class="tag">Strategy A</span>
+        <h3>Free app, ads ke saath</h3>
+        <div class="price">₹0 <span class="muted" style="font-size:16px;font-weight:400">/ ads hatane ke liye ₹1,000 ya ₹2,000 per month</span></div>
+        <div class="pros"><h4>Fayde</h4><ul class="clean"><li>Free hai, to log jaldi try karenge.</li><li>Zyada users jaldi aa sakte hain.</li><li>Ads se bhi thodi kamai.</li></ul></div>
+        <div class="cons"><h4>Risk</h4><ul class="clean"><li>Billing ke time ads aaye to dukaandar pareshan hoga.</li><li>Sirf ads hatane ke liye ₹1,000-2,000 dena mehnga lag sakta hai.</li><li>Paying users kam ho sakte hain.</li></ul></div>
+      </div>
+      <div class="card">
+        <span class="tag">Strategy B</span>
+        <h3>₹99 ka 3-day trial</h3>
+        <div class="price">₹999 <span class="muted" style="font-size:16px;font-weight:400">/ month, trial ke baad</span></div>
+        <div class="pros"><h4>Fayde</h4><ul class="clean"><li>Jo ₹99 deta hai, wo serious customer hai.</li><li>Pehle din se kamai.</li><li>Koi ads nahi, app saaf rehta hai.</li></ul></div>
+        <div class="cons"><h4>Risk</h4><ul class="clean"><li>₹99 bhi pehli baar dene mein log hichkichate hain.</li><li>3 din mein aadat banana mushkil.</li><li>Shuru mein users kam aayenge.</li></ul></div>
+      </div>
+    </div>
+
+    <div class="card calc">
+      <h3>Income calculator <span class="sample">SAMPLE</span></h3>
+      <p class="muted">Paying dukaanein × monthly price = monthly income</p>
+      <div class="grid g2">
+        <div><label for="shops">Kitni dukaanein pay karengi?</label><input id="shops" type="number" min="0" value="500"></div>
+        <div><label for="plan">Plan chuno</label>
+          <select id="plan">
+            <option value="1000">Strategy A: ₹1,000 / month</option>
+            <option value="2000">Strategy A: ₹2,000 / month</option>
+            <option value="999" selected>Strategy B: ₹999 / month</option>
+          </select></div>
+      </div>
+      <div class="out">
+        <div class="muted">Monthly income</div><div class="big" id="monthly">₹0</div>
+        <div class="muted" style="margin-top:8px">Saal ka (× 12): <b id="yearly" style="color:var(--text)">₹0</b></div>
+      </div>
+      <p class="muted" style="margin-top:10px;font-size:14px">Ye sirf ek simple calculation hai. Ads ki kamai, trial ke ₹99 aur kharche isme nahi jode gaye.</p>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="next">
+    <div class="num">09</div>
+    <h2>Kya decide karna hai aur aage kya</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Decide karna hai</h3>
+        <ul class="clean">
+          <li>Strategy A ya B? Ya dono ko chhote level pe test karein?</li>
+          <li>App ka final naam.</li>
+          <li>Pehle kis shehar / area ki dukaanon se shuru karein?</li>
+          <li>Pehle version mein kaunse features zaroori hain?</li>
+        </ul></div>
+      <div class="card"><h3>Next steps</h3>
+        <ul class="clean">
+          <li>10-20 dukaandaron se baat karke problem confirm karein.</li>
+          <li>Unhe voice billing ka demo dikhayein, reaction dekhein.</li>
+          <li>Unse poochein ki wo kitna pay karne ko ready hain.</li>
+          <li>Uske baad pricing aur features final karein.</li>
+        </ul></div>
+    </div>
+  </section>
+
+</main>
+
+<footer><span class="app-name">DukaanBol</span> · App idea report · Saare numbers sample hain</footer>
+
+<script>
+  // App name ek jagah se poori report mein
+  document.querySelectorAll(".app-name").forEach(el => el.textContent = APP_NAME);
+  document.title = APP_NAME + " – App Idea Report";
+
+  // Income calculator
+  const fmt = n => "₹" + Math.round(n).toLocaleString("en-IN");
+  function calc(){
+    const shops = Math.max(0, Number(document.getElementById("shops").value) || 0);
+    const price = Number(document.getElementById("plan").value);
+    const m = shops * price;
+    document.getElementById("monthly").textContent = fmt(m);
+    document.getElementById("yearly").textContent = fmt(m * 12);
+  }
+  document.getElementById("shops").addEventListener("input", calc);
+  document.getElementById("plan").addEventListener("change", calc);
+  calc();
+</script>
+</body>
+</html>
